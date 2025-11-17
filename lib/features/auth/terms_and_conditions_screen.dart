@@ -19,10 +19,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             children: const [
               Text(
                 'TÉRMINOS Y CONDICIONES DE USO',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 20),
               Text(
@@ -58,10 +55,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
               SizedBox(height: 30),
               Text(
                 'POLÍTICA DE PRIVACIDAD',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 20),
               Text(
@@ -92,7 +86,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
               Text(
                 'Gracias por utilizar esta aplicación. Su privacidad es importante para nosotros.',
                 style: TextStyle(fontSize: 16),
-              )
+              ),
             ],
           ),
         ),

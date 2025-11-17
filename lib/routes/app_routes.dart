@@ -5,5 +5,8 @@ class AppRoutes {
   static const home = '/home';
   static const splashWelcome = '/splash-welcome';
   static const profile = '/profile';
+  static const registroempleados = '/registro_empleados';
+  static const calendario = '/calendario';
+  static const horario = '/horario';
   static const capas = '/capas';
 }

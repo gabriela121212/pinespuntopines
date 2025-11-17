@@ -1,10 +1,15 @@
+import 'package:auth_company/features/home/views/calendario.dart';
+import 'package:auth_company/features/home/views/capas.dart';
+import 'package:auth_company/features/home/views/horario.dart';
+import 'package:auth_company/features/home/views/register.dart';
+import 'package:auth_company/features/home/views/user_perfil.dart';
 import 'package:flutter/material.dart';
 import 'routes/app_routes.dart';
 import 'features/auth/splash_screen.dart';
 import 'features/auth/login/login_screen.dart';
 import 'features/auth/register/register_screen.dart';
 import 'features/home/home_layout.dart';
-import 'features/home/views/home_screen.dart';
+import 'features/home/views/home.dart';
 import 'features/auth/splash_screen_welcome.dart';
 
 class HomeApp extends StatelessWidget {
@@ -20,8 +25,16 @@ class HomeApp extends StatelessWidget {
         AppRoutes.splash: (context) => const SplashScreen(),
         AppRoutes.login: (context) => const LoginScreen(),
         AppRoutes.register: (context) => const RegisterScreen(),
-        AppRoutes.home: (context) => const HomeLayout(child: HomeScreen()),
+        AppRoutes.home: (context) => const HomeLayout(child: Home()),
         AppRoutes.splashWelcome: (context) => const StartScreen(),
+        AppRoutes.profile:
+            (context) => const HomeLayout(child: ProfileScreen()),
+        AppRoutes.registroempleados:
+            (context) => const HomeLayout(child: RegistroEmpleados()),
+        AppRoutes.calendario:
+            (context) => const HomeLayout(child: Calendario()),
+        AppRoutes.horario: (context) => const HomeLayout(child: Horario()),
+        AppRoutes.capas: (context) => const HomeLayout(child: Historial()),
       },
     );
   }

@@ -18,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
           children: [
             // El header y el avatar están en el mismo widget con Stack
             _ProfileHeader(),
-            
+
             // Contenido de la información del perfil
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 25.0),
@@ -38,7 +38,7 @@ class _ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    
+
     // Altura del área superior con la imagen (aproximadamente 35-40% de la pantalla)
     final double headerHeight = screenHeight * 0.40;
 
@@ -53,7 +53,9 @@ class _ProfileHeader extends StatelessWidget {
           decoration: const BoxDecoration(
             image: DecorationImage(
               // Usamos una imagen de asset para simular el fondo
-              image: NetworkImage('https://i.pinimg.com/564x/bb/dd/e3/bbdde34ccf2b181ba62d1d42ba002c5b.jpg'), 
+              image: NetworkImage(
+                'https://plus.unsplash.com/premium_photo-1711031505781-2a45c879ceac?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW0lQzMlQTFnZW5lcyUyMGltcHJlc2lvbmFudGVzfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000',
+              ),
               fit: BoxFit.cover,
             ),
           ),
@@ -70,7 +72,9 @@ class _ProfileHeader extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      Colors.white.withOpacity(1.0), // Se difumina a blanco sólido
+                      Colors.white.withOpacity(
+                        1.0,
+                      ), // Se difumina a blanco sólido
                     ],
                   ),
                 ),
@@ -81,7 +85,9 @@ class _ProfileHeader extends StatelessWidget {
 
         // 2. Avatar de Perfil Grande y Flotante
         Positioned(
-          top: headerHeight - 110, // Posiciona el centro del avatar cerca del final de la cabecera
+          top:
+              headerHeight -
+              110, // Posiciona el centro del avatar cerca del final de la cabecera
           left: 0,
           right: 0,
           child: Center(
@@ -103,12 +109,14 @@ class _ProfileHeader extends StatelessWidget {
                     ],
                     // Avatar (la parte central de la cabeza)
                     image: DecorationImage(
-                      image: NetworkImage('https://i.pinimg.com/564x/bb/dd/e3/bbdde34ccf2b181ba62d1d42ba002c5b.jpg'), 
+                      image: NetworkImage(
+                        'https://plus.unsplash.com/premium_photo-1711031505781-2a45c879ceac?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW0lQzMlQTFnZW5lcyUyMGltcHJlc2lvbmFudGVzfGVufDB8fDB8fHww&fm=jpg&q=60&w=3000',
+                      ),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                
+
                 // Botón de la Cámara
                 Positioned(
                   bottom: 10,
@@ -140,7 +148,6 @@ class _ProfileHeader extends StatelessWidget {
       ],
     );
   }
-  
 }
 
 // --- WIDGET DE LA SECCIÓN DE INFORMACIÓN ---
@@ -153,7 +160,6 @@ class _ProfileInfoSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 70), // Espacio para el avatar flotante
-        
         // Título "Perfil"
         const Text(
           'Perfil',
@@ -163,18 +169,18 @@ class _ProfileInfoSection extends StatelessWidget {
             color: _kPrimaryTextColor,
           ),
         ),
-        
+
         const SizedBox(height: 30),
-        
+
         // Campos de Información
         _buildProfileField('Nombres:', 'Carlos Michael'),
         _buildProfileField('Apellidos:', 'Lopez Ojeda'),
         _buildProfileField('Cedula:', '1150836318'),
         _buildProfileField('Correo:', 'drea.lovebooks@gmail.com'),
         _buildProfileField('Numero de telefono', '0969621169'),
-        
+
         const SizedBox(height: 30),
-        
+
         // Sección Género
         _buildGenderSection(),
 
@@ -200,7 +206,7 @@ class _ProfileInfoSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10),
-          
+
           // Valor del campo (Ej: Carlos Michael)
           Text(
             value,
@@ -211,12 +217,9 @@ class _ProfileInfoSection extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          
+
           // Línea divisora
-          Container(
-            height: 1,
-            color: _kLightGrey,
-          ),
+          Container(height: 1, color: _kLightGrey),
         ],
       ),
     );
@@ -255,23 +258,29 @@ class _ProfileInfoSection extends StatelessWidget {
       width: 55,
       height: 55,
       decoration: BoxDecoration(
-        color: isSelected ? Colors.grey[600] : Colors.white, // Gris oscuro si está seleccionado
+        color:
+            isSelected
+                ? Colors.grey[600]
+                : Colors.white, // Gris oscuro si está seleccionado
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           color: isSelected ? Colors.grey[600]! : _kLightGrey,
           width: isSelected ? 0 : 1,
         ),
-        boxShadow: isSelected ? [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ] : null,
+        boxShadow:
+            isSelected
+                ? [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 5,
+                    offset: const Offset(0, 3),
+                  ),
+                ]
+                : null,
       ),
       child: Icon(
         // Usamos íconos de persona genéricos para simular los de la imagen
-        icon, 
+        icon,
         color: isSelected ? Colors.white : Colors.black54,
         size: 30,
       ),

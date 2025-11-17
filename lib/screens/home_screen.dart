@@ -18,7 +18,8 @@ class HomeScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: const [
               LottieAnimationWidget(
-                animationPath: 'lib/assets/animaciones/Check Mark - Success.json',
+                animationPath:
+                    'lib/assets/animaciones/Check Mark - Success.json',
                 repeat: true,
               ),
             ],
@@ -28,11 +29,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
 
 /*import 'package:flutter/material.dart';
 import '../widgets/lottie_animation.dart';
