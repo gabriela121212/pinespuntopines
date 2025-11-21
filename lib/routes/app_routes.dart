@@ -9,4 +9,5 @@ class AppRoutes {
   static const calendario = '/calendario';
   static const horario = '/horario';
   static const capas = '/capas';
+  static const sucursal = '/sucursal';
 }

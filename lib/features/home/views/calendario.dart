@@ -18,6 +18,10 @@ class Calendario extends StatelessWidget {
       {'numero': '5', 'texto': 'Retroalimentación del cliente'},
       {'numero': '6', 'texto': 'Cierre de sprint'},
       {'numero': '7', 'texto': 'Planeación siguiente etapa'},
+      {'numero': '4', 'texto': 'Entrega final'},
+      {'numero': '5', 'texto': 'Retroalimentación del cliente'},
+      {'numero': '6', 'texto': 'Cierre de sprint'},
+      {'numero': '7', 'texto': 'Planeación siguiente etapa'},
     ];
 
     return Scaffold(
@@ -72,7 +76,7 @@ class Calendario extends StatelessWidget {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                height: height * 0.75,
+                height: height * 0.70,
                 width: width,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -88,165 +92,171 @@ class Calendario extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 15),
 
-                      /// 🔸 Título del mes
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                /// 🔥 CUADRO INTERIOR QUE SÍ ES SCROLLEABLE
+                child: Container(
+                  // cuadro sin decoración
+                  margin: const EdgeInsets.only(top: 40),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.chevron_left,
-                              color: Colors.black54,
-                              size: 30,
+                          /// 🔸 Título del mes
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.chevron_left,
+                                  color: Colors.black54,
+                                  size: 30,
+                                ),
+                              ),
+                              const Text(
+                                "Julio 2025",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.chevron_right,
+                                  color: Colors.black54,
+                                  size: 30,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(height: 15),
+
+                          /// 🔸 Cuadro principal
+                          Container(
+                            height: height * 0.25,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.transparent,
                             ),
                           ),
+
+                          const SizedBox(height: 20),
+                          Divider(color: Colors.grey.shade300, thickness: 1),
+                          const SizedBox(height: 5),
+
                           const Text(
-                            "Julio 2025",
+                            "Fechas importantes",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Colors.black87,
                             ),
                           ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.chevron_right,
-                              color: Colors.black54,
-                              size: 30,
+
+                          const SizedBox(height: 5),
+
+                          ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            padding: EdgeInsets.only(
+                              bottom: size.height * 0.10,
+                              top: size.height * 0.02,
                             ),
-                          ),
-                        ],
-                      ),
+                            itemCount: eventos.length,
+                            itemBuilder: (context, index) {
+                              final evento = eventos[index];
+                              final bool isLast = index == eventos.length - 1;
 
-                      const SizedBox(height: 15),
-
-                      /// 🔸 Cuadro principal (placeholder)
-                      Container(
-                        height: height * 0.25,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.transparent,
-                        ),
-                      ),
-
-                      const SizedBox(height: 20),
-                      Divider(color: Colors.grey.shade300, thickness: 1),
-                      const SizedBox(height: 5),
-                      const Text(
-                        "Fechas importantes",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-
-                      /// 🔸 Lista de eventos con separación
-                      Expanded(
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          padding: EdgeInsets.only(
-                            bottom: size.height * 0.10, // 10% del alto
-                            top: size.height * 0.02, // 2% del alto
-                          ),
-                          itemCount: eventos.length,
-                          itemBuilder: (context, index) {
-                            final evento = eventos[index];
-                            final bool isLast = index == eventos.length - 1;
-
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              child: Stack(
-                                clipBehavior: Clip.none,
-                                children: [
-                                  if (!isLast)
-                                    Positioned(
-                                      left: 12,
-                                      top: 25,
-                                      bottom: -25,
-
-                                      child: CustomPaint(
-                                        painter: DashedLinePainter(),
-                                      ),
-                                    ),
-
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        height: 25,
-                                        width: 25,
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          gradient: LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.bottomLeft,
-                                            colors: [
-                                              Color(0xFFE81236),
-                                              Color(0xFF370B12),
-                                            ],
-                                          ),
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 8,
+                                ),
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    if (!isLast)
+                                      Positioned(
+                                        left: 12,
+                                        top: 25,
+                                        bottom: -25,
+                                        child: CustomPaint(
+                                          painter: DashedLinePainter(),
                                         ),
                                       ),
-                                      const SizedBox(width: 20),
 
-                                      Text(
-                                        evento['numero']!,
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black87,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 20),
-
-                                      Expanded(
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 10,
-                                            horizontal: 18,
-                                          ),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          height: 25,
+                                          width: 25,
                                           decoration: const BoxDecoration(
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(30),
-                                            ),
+                                            shape: BoxShape.circle,
                                             gradient: LinearGradient(
-                                              begin: Alignment.centerLeft,
-                                              end: Alignment.centerRight,
+                                              begin: Alignment.topRight,
+                                              end: Alignment.bottomLeft,
                                               colors: [
                                                 Color(0xFFE81236),
                                                 Color(0xFF370B12),
                                               ],
                                             ),
                                           ),
-                                          child: Text(
-                                            evento['texto']!,
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15,
+                                        ),
+                                        const SizedBox(width: 20),
+
+                                        Text(
+                                          evento['numero']!,
+                                          style: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 20),
+
+                                        Expanded(
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              vertical: 10,
+                                              horizontal: 18,
+                                            ),
+                                            decoration: const BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(30),
+                                              ),
+                                              gradient: LinearGradient(
+                                                begin: Alignment.centerLeft,
+                                                end: Alignment.centerRight,
+                                                colors: [
+                                                  Color(0xFFE81236),
+                                                  Color(0xFF370B12),
+                                                ],
+                                              ),
+                                            ),
+                                            child: Text(
+                                              evento['texto']!,
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),

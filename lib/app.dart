@@ -2,6 +2,7 @@ import 'package:auth_company/features/home/views/calendario.dart';
 import 'package:auth_company/features/home/views/capas.dart';
 import 'package:auth_company/features/home/views/horario.dart';
 import 'package:auth_company/features/home/views/register.dart';
+import 'package:auth_company/features/home/views/sucursal.dart';
 import 'package:auth_company/features/home/views/user_perfil.dart';
 import 'package:flutter/material.dart';
 import 'routes/app_routes.dart';
@@ -35,6 +36,8 @@ class HomeApp extends StatelessWidget {
             (context) => const HomeLayout(child: Calendario()),
         AppRoutes.horario: (context) => const HomeLayout(child: Horario()),
         AppRoutes.capas: (context) => const HomeLayout(child: Historial()),
+        AppRoutes.sucursal:
+            (context) => const HomeLayout(child: SucursalPage()),
       },
     );
   }

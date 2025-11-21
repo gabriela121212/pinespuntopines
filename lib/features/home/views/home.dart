@@ -69,9 +69,12 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: SizedBox(
                 width: svgSize,
                 height: svgSize,
-                child: SvgPicture.asset(
-                  'lib/assets/images/huella.svg',
-                  fit: BoxFit.contain,
+                child: Opacity(
+                  opacity: 0.5,
+                  child: SvgPicture.asset(
+                    'lib/assets/images/huella.svg',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ),
@@ -130,39 +133,47 @@ class CustomHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                             textAlign: TextAlign.center,
                           ),
                           SizedBox(height: categoryHeight * 0.1),
-                          TextButton(
-                            onPressed:
-                                () =>
-                                    Navigator.pushNamed(context, cat['ruta']!),
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              shape: const CircleBorder(),
-                            ),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color.fromARGB(86, 0, 0, 0),
-                                    blurRadius: 10,
-                                    spreadRadius: 1,
+
+                          // 🔥 Animación secuencial aquí 🔥
+                          PulseButton(
+                            delay:
+                                index *
+                                350, // cada botón se anima uno tras otro
+                            child: TextButton(
+                              onPressed:
+                                  () => Navigator.pushNamed(
+                                    context,
+                                    cat['ruta']!,
                                   ),
-                                ],
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                shape: const CircleBorder(),
                               ),
-                              child: CircleAvatar(
-                                radius: iconSize * 0.8,
-                                backgroundColor: const Color.fromARGB(
-                                  134,
-                                  255,
-                                  255,
-                                  255,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color.fromARGB(86, 0, 0, 0),
+                                      blurRadius: 10,
+                                      spreadRadius: 1,
+                                    ),
+                                  ],
                                 ),
-                                child: SvgPicture.asset(
-                                  cat['asset'] ??
-                                      'assets/icons/placeholder.svg',
-                                  width: iconSize * 0.5,
-                                  height: iconSize * 0.5,
-                                  fit: BoxFit.contain,
+                                child: CircleAvatar(
+                                  radius: iconSize * 0.8,
+                                  backgroundColor: const Color.fromARGB(
+                                    134,
+                                    255,
+                                    255,
+                                    255,
+                                  ),
+                                  child: SvgPicture.asset(
+                                    cat['asset'] ??
+                                        'assets/icons/placeholder.svg',
+                                    width: iconSize * 0.5,
+                                    height: iconSize * 0.5,
+                                  ),
                                 ),
                               ),
                             ),
@@ -481,7 +492,7 @@ final List<Map<String, String>> categorias = [
   {
     "nombre": "Sucursal",
     "asset": "lib/assets/images/Sucursal.svg",
-    "ruta": AppRoutes.registroempleados,
+    "ruta": AppRoutes.sucursal,
   },
   {
     "nombre": "Calendar",
@@ -516,3 +527,83 @@ final List<Map<String, String>> asistencias = [
   {"fecha": "08/11/2025", "hora": "10:15 AM"},
   {"fecha": "07/11/2025", "hora": "08:00 AM"},
 ];
+
+class PulseButton extends StatefulWidget {
+  final Widget child;
+  final int delay; // milisegundos
+
+  const PulseButton({super.key, required this.child, required this.delay});
+
+  @override
+  State<PulseButton> createState() => _PulseButtonState();
+}
+
+class _PulseButtonState extends State<PulseButton>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> scale;
+  late Animation<double> glowOpacity;
+  late Animation<double> glowBlur;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+
+    glowOpacity = Tween<double>(
+      begin: 0.0,
+      end: 0.6,
+    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+
+    glowBlur = Tween<double>(
+      begin: 0.0,
+      end: 18.0,
+    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+
+    scale = Tween<double>(
+      begin: 1.0,
+      end: 1.15,
+    ).animate(CurvedAnimation(parent: controller, curve: Curves.easeInOut));
+
+    Future.delayed(Duration(milliseconds: widget.delay), () async {
+      await controller.forward();
+      await controller.reverse();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (_, child) {
+        return Transform.scale(
+          scale: scale.value,
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.red.withOpacity(glowOpacity.value),
+                  blurRadius: glowBlur.value,
+                  spreadRadius: glowBlur.value * 0.35,
+                ),
+              ],
+            ),
+            child: child,
+          ),
+        );
+      },
+      child: widget.child,
+    );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+}
